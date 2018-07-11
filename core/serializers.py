@@ -20,12 +20,11 @@ class CitySerializer(SerializerExtensionsMixin, serializers.ModelSerializer):
         model = City
         fields = ('id', 'name', 'country', 'url')
 
-        read_only = ('id', 'url', 'country', 'country_id_resolved')
+        read_only = ('id', 'url',)
 
         expandable_fields = dict(
             country=dict(
                 serializer=CountrySerializer,
                 read_only=False,
-                # id_source=False
             )
         )
