@@ -6,7 +6,7 @@ from rest_framework_serializer_extensions.serializers import (
 from .models import Country, City
 
 
-class CountrySerializer(serializers.ModelSerializer):
+class CountrySerializer(SerializerExtensionsMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Country
@@ -18,7 +18,7 @@ class CitySerializer(SerializerExtensionsMixin, serializers.ModelSerializer):
 
     class Meta:
         model = City
-        fields = ('id', 'name', 'country', 'url')
+        fields = ('id', 'name', 'url')
 
         read_only = ('id', 'url',)
 
@@ -28,3 +28,7 @@ class CitySerializer(SerializerExtensionsMixin, serializers.ModelSerializer):
                 read_only=False,
             )
         )
+
+    def create(self, validated_data):
+        validated_data.pop('country_id_resolved')
+        return super().create(validated_data)

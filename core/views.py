@@ -16,3 +16,4 @@ class CityViewSet(SerializerExtensionsAPIViewMixin, viewsets.ModelViewSet):
 
     queryset = City.objects.all()
     serializer_class = CitySerializer
+    extensions_expand = {'country'}
